@@ -6,6 +6,13 @@ int main()
 {
     srand(time(NULL));
 
+    cout << " +----------------------------------------------------+\n";
+    cout << " |        Computer Science and Engineering            |\n";
+    cout << " |         CSCE 1030 - Computer Science I             |\n";
+    cout << " |       Coleman Hicks cgh0124 cgh0124@my.unt.edu     |\n";
+    cout << " +----------------------------------------------------+\n";
+
+    
     int numberPoints = 100;
     enum values {
         displayLeft = 1,
@@ -21,6 +28,7 @@ int main()
     int userSelect;
     values userSelected;
     int userGuess;
+    bool nextUpper = true;
 
     while (!valid) {
         cout << "Please enter your name\n";
@@ -32,9 +40,17 @@ int main()
                 break;
             }
             else {
-                //cout << "Your name is valid\n";
                 valid = true;
-                //break;
+                if (isspace(playerName[i])) {
+                    nextUpper = true;
+                }
+                else if (nextUpper && isalpha(playerName[i])) {
+                    playerName[i] = toupper(playerName[i]);
+                    nextUpper = false;
+                }
+                else {
+                    playerName[i] = tolower(playerName[i]);
+                }
             }
         }
         if (valid) {
@@ -54,7 +70,7 @@ int main()
 
     bool showingOne = false;
     
-    while (playing) {
+    while (playing && numberPoints > 0) {
         cout << "--------------------------\n";
         cout << "Numbers: " << shownNumOne << "\t" << shownNumTwo << endl;
         cout << "Please select an option:\n";
@@ -134,6 +150,13 @@ int main()
             cout << "Not a valid selection. Try again\n";
             break;
         }
+    }
+    
+    if (numberPoints > 0) {
+
+    }
+    else {
+        cout << "You are out of points!\n Bye " << playerName << "!\n";
     }
 
     //return 0;
