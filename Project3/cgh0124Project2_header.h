@@ -3,23 +3,23 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
-
+using namespace std;
 const int numTests = 5;
-enum choices;// {
-    /*Add = 1,
+enum choices {
+    Add = 1,
     Remove = 2,
     Display = 3,
     Search = 4,
     Results = 5,
     Quit = 6
-};*/
-struct Student; //{
-    /*string name;
+};
+struct Student {
+    string name;
     int id;
     int testsTaken;
     int* scores;
-    double avg;*/
-//};
+    double avg;
+};
 
 int getNumber();
 void add_Student();

@@ -5,23 +5,6 @@
 #include "cgh0124Project2_header.h"
 using namespace std;
 
-enum choices {
-Add = 1,
-Remove = 2,
-Display = 3,
-Search = 4,
-Results = 5,
-Quit = 6
-};
-
-struct Student {
-    string name;
-    int id;
-    int testsTaken;
-    int* scores;
-    double avg;
-};
-
 int main()
 {
     bool looping = true;

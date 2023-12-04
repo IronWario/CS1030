@@ -19,11 +19,12 @@ void add_Student() {
 
     ofstream outputter;
     outputter.open("student.dat", ios_base::app);
+    outputter << endl;
     outputter << holding << "," << stu.name << "," << stu.id << "," << stu.testsTaken << ",";
     for (int i = 0; i < stu.testsTaken; i++) {
         outputter << stu.scores[i] << ",";
     }
-    outputter << endl;
+    //outputter << endl;
 
     outputter.close();
 }
@@ -34,35 +35,36 @@ void remove_Student(int removeID) {
     string* lastNames = new string[numStudents];
     ifstream readIn;
     readIn.open("student.dat");
-    string holdMe;
+    char* holdMe = new char();
     bool foundMatch = false;
     for (int i = 0; i < numStudents; i++) {
         getline(readIn, lastNames[i], ',');
         getline(readIn, allStudents[i].name, ',');
-        getline(readIn, holdMe, ',');
-        allStudents[i].id = stoi(holdMe);
-        if (allStudents[i].id == removeID) {
-            foundMatch = true;
-        }
-        getline(readIn, holdMe, ',');
-        allStudents[i].testsTaken = stoi(holdMe);
+        readIn.getline(holdMe, 15, ',');
+        allStudents[i].id = atoi(holdMe);
+        readIn.getline(holdMe, 2, ',');
+        allStudents[i].testsTaken = atoi(holdMe);
         allStudents[i].scores = new int(allStudents[i].testsTaken);
         for (int j = 0; j < allStudents[i].testsTaken; i++) {
-            getline(readIn, holdMe, ',');
-            allStudents[i].scores[j] = stoi(holdMe);
+            readIn.getline(holdMe, 4, ',');
+            allStudents[i].scores[j] = atoi(holdMe);
+        }
+        if (allStudents[i].id == removeID) {
+            foundMatch = true;
         }
     }
     readIn.close();
     if (foundMatch) {
         ofstream outputter;
         outputter.open("student.dat");
+        outputter << endl;
         for (int i = 0; i < numStudents; i++) {
             if (allStudents[i].id != removeID) {
                 outputter << lastNames[i] << "," << allStudents[i].name << "," << allStudents[i].id << "," << allStudents[i].testsTaken << ",";
                 for (int j = 0; i < allStudents[i].testsTaken; j++) {
                     outputter << allStudents[i].scores[j] << ",";
                 }
-                outputter << endl;
+                //outputter << endl;
             }
         }
         outputter.close();
@@ -78,28 +80,28 @@ void display() {
     string* lastNames = new string[numStudents];
     ifstream readIn;
     readIn.open("student.dat");
-    string holdMe;
+    char* holdMe = new char();
     for (int i = 0; i < numStudents; i++) {
         getline(readIn, lastNames[i], ',');
         getline(readIn, allStudents[i].name, ',');
-        getline(readIn, holdMe, ',');
-        allStudents[i].id = stoi(holdMe);
-        getline(readIn, holdMe, ',');
-        allStudents[i].testsTaken = stoi(holdMe);
+        readIn.getline(holdMe, 15,  ',');
+        allStudents[i].id = atoi(holdMe);
+        readIn.getline(holdMe, 2, ',');
+        allStudents[i].testsTaken = atoi(holdMe);
         allStudents[i].scores = new int(allStudents[i].testsTaken);
         for (int j = 0; j < allStudents[i].testsTaken; i++) {
-            getline(readIn, holdMe, ',');
-            allStudents[i].scores[j] = stoi(holdMe);
+            readIn.getline(holdMe, 4, ',');
+            allStudents[i].scores[j] = atoi(holdMe);
         }
     }
     readIn.close();
 
     for (int i = 0; i < numStudents; i++) {
         string fullName = lastNames[i] + "," + allStudents[i].name;
-        printf("%30s", fullName);
-        printf("%15d", allStudents[i].id);
+        cout << fullName << " ";
+        cout << allStudents[i].id << " ";
         for (int j = 0; j < allStudents[i].testsTaken; j++) {
-            printf("%5d", allStudents[i].scores[j]);
+            cout << allStudents[i].scores[j] << " ";
         }
         cout << endl;
     }
@@ -111,22 +113,22 @@ void search(int findID) {
     string* lastNames = new string[numStudents];
     ifstream readIn;
     readIn.open("student.dat");
-    string holdMe;
+    char* holdMe = new char();
     bool foundMatch = false;
     for (int i = 0; i < numStudents; i++) {
         getline(readIn, lastNames[i], ',');
         getline(readIn, allStudents[i].name, ',');
-        getline(readIn, holdMe, ',');
-        allStudents[i].id = stoi(holdMe);
-        if (allStudents[i].id == findID) {
-            foundMatch = true;
-        }
-        getline(readIn, holdMe, ',');
-        allStudents[i].testsTaken = stoi(holdMe);
+        readIn.getline(holdMe, 15, ',');
+        allStudents[i].id = atoi(holdMe);
+        readIn.getline(holdMe, 2, ',');
+        allStudents[i].testsTaken = atoi(holdMe);
         allStudents[i].scores = new int(allStudents[i].testsTaken);
         for (int j = 0; j < allStudents[i].testsTaken; i++) {
-            getline(readIn, holdMe, ',');
-            allStudents[i].scores[j] = stoi(holdMe);
+            readIn.getline(holdMe, 4, ',');
+            allStudents[i].scores[j] = atoi(holdMe);
+        }
+        if (allStudents[i].id == findID) {
+            foundMatch = true;
         }
     }
     readIn.close();
@@ -170,20 +172,20 @@ void exportResults() {
     Student* allStudents = new Student[numStudents];
     string* lastNames = new string[numStudents];
     ifstream readIn;
-    string holdMe;
+    char* holdMe = new char();
     readIn.open("student.dat");
 
     for (int i = 0; i < numStudents; i++) {
         getline(readIn, lastNames[i], ',');
         getline(readIn, allStudents[i].name, ',');
-        getline(readIn, holdMe, ',');
-        allStudents[i].id = stoi(holdMe);
-        getline(readIn, holdMe, ',');
-        allStudents[i].testsTaken = stoi(holdMe);
+        readIn.getline(holdMe, 15, ',');
+        allStudents[i].id = atoi(holdMe);
+        readIn.getline(holdMe, 2, ',');
+        allStudents[i].testsTaken = atoi(holdMe);
         allStudents[i].scores = new int(allStudents[i].testsTaken);
         for (int j = 0; j < allStudents[i].testsTaken; i++) {
-            getline(readIn, holdMe, ',');
-            allStudents[i].scores[j] = stoi(holdMe);
+            readIn.getline(holdMe, 4, ',');
+            allStudents[i].scores[j] = atoi(holdMe);
         }
     }
     readIn.close();
